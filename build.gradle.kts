@@ -5,7 +5,7 @@ plugins {
 }
 
 group   = "com.dennislang"
-version = "1.0.0"
+version = file("VERSION").readText().trim()
 
 repositories {
     mavenCentral()
