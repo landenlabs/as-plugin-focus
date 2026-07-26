@@ -1,7 +1,7 @@
 <table border="0">
   <tr>
     <td>
-      <!-- VERSION -->v6.07.20<br>
+      <!-- VERSION -->v6.07.21<br>
       <!-- DATE -->26-Jul-2026<br>
       Android Studio / IntelliJ Plugin (Kotlin)<br>
       <a href="https://github.com/dlang">Repo</a>
@@ -120,7 +120,7 @@ from the repo root:
 ./set-version.bash -version 1.1.0 -message "Add distinct light/dark border colors"
 ```
 
-This updates `VERSION` and the `<!-- VERSION -->v6.07.20<!-- DATE -->26-Jul-2026
+This updates `VERSION` and the `<!-- VERSION -->v6.07.21<!-- DATE -->26-Jul-2026
 README, then commits, tags, and pushes. Because this is a plain Gradle/Kotlin
 project rather than an Android app, `build.gradle.kts`'s `version = "..."` and
 `plugin.xml`'s `<version>...</version>` aren't touched by the script (it only
