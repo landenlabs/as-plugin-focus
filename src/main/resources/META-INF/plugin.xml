@@ -1,0 +1,28 @@
+<idea-plugin>
+    <id>com.dennislang.focus-highlighter</id>
+    <name>Focus Highlighter</name>
+    <version>1.0.0</version>
+    <vendor url="https://github.com/dlang">Dennis Lang</vendor>
+
+    <description><![CDATA[
+        Makes it obvious which tool window or editor split currently has keyboard focus
+        by drawing a colored border around it.<br/>
+        <ul>
+            <li>Highlights the active tool window (Project, Logcat, Build, etc.)</li>
+            <li>Highlights the focused editor split when working with multiple open editors</li>
+            <li>Configurable color and border thickness via <b>Settings → Tools → Focus Highlighter</b></li>
+        </ul>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <postStartupActivity implementation="com.dennislang.focushighlighter.FocusHighlighterStartupActivity"/>
+        <applicationService serviceImplementation="com.dennislang.focushighlighter.FocusHighlighterSettings"/>
+        <applicationConfigurable
+                parentId="tools"
+                instance="com.dennislang.focushighlighter.FocusHighlighterConfigurable"
+                id="com.dennislang.focus-highlighter.settings"
+                displayName="Focus Highlighter"/>
+    </extensions>
+</idea-plugin>
