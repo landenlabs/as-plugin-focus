@@ -19,8 +19,18 @@ class FocusHighlighterSettings : PersistentStateComponent<FocusHighlighterSettin
         var enabled: Boolean = true,
         // RGB only (no alpha) — combined with a fixed dark-theme variant at paint time.
         var colorRgb: Int = 0x3D8EFF,
-        var thickness: Int = 2
+        var thickness: Int = 2,
+        // Skip highlighting a component smaller than this on the checked dimension(s).
+        var minSize: Int = 100,
+        var ignoreDimension: IgnoreDimension = IgnoreDimension.NONE
     )
+
+    enum class IgnoreDimension(val label: String) {
+        NONE("Check width & height"),
+        WIDTH("Ignore width (check height only)"),
+        HEIGHT("Ignore height (check width only)"),
+        BOTH("Disable size check")
+    }
 
     private var state = State()
 

@@ -14,7 +14,7 @@
   </tr>
 </table>
 
-# Focus Highlighter
+# All Focus Highlighter
 
 An Android Studio / IntelliJ IDEA plugin that draws a colored border around whichever
 panel currently has keyboard focus — a tool window (Project, Logcat, Build, etc.) or
@@ -36,7 +36,7 @@ an editor split — so it's obvious at a glance which one is active.
 
 ## Settings
 
-Open **Settings → Tools → Focus Highlighter** to configure:
+Open **Settings → Tools → All Focus Highlighter** to configure:
 
 - Enable/disable toggle
 - Border color
@@ -55,7 +55,7 @@ as-plugin-focus/
 │   ├── FocusHighlighter.kt              # Core border-painting logic
 │   ├── FocusHighlighterStartupActivity.kt  # Registers the editor + tool window focus listeners
 │   ├── FocusHighlighterSettings.kt      # Persistent app-level state (saved to focus-highlighter.xml)
-│   └── FocusHighlighterConfigurable.kt  # Settings UI under Settings -> Tools -> Focus Highlighter
+│   └── FocusHighlighterConfigurable.kt  # Settings UI under Settings -> Tools -> All Focus Highlighter
 ├── VERSION                         # Bare X.Y.Z, source of truth for the version above
 ├── set-version.bash                # Bump version, commit, tag, push (macOS/Linux)
 ├── set-version.ps1                 # Bump version, commit, tag, push (Windows)

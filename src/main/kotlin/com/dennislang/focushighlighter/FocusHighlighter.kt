@@ -24,6 +24,10 @@ object FocusHighlighter {
             clear()
             return
         }
+        if (isTooSmall(component, state)) {
+            clear()
+            return
+        }
         if (highlightedComponent === component) return
 
         clear()
@@ -35,5 +39,14 @@ object FocusHighlighter {
     private fun clear() {
         highlightedComponent?.border = null
         highlightedComponent = null
+    }
+
+    private fun isTooSmall(component: JComponent, state: FocusHighlighterSettings.State): Boolean {
+        val ignore = state.ignoreDimension
+        if (ignore == FocusHighlighterSettings.IgnoreDimension.BOTH) return false
+        val checkWidth = ignore != FocusHighlighterSettings.IgnoreDimension.WIDTH
+        val checkHeight = ignore != FocusHighlighterSettings.IgnoreDimension.HEIGHT
+        return (checkWidth && component.width < state.minSize) ||
+               (checkHeight && component.height < state.minSize)
     }
 }

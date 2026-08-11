@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>com.dennislang.focus-highlighter</id>
-    <name>Focus Highlighter</name>
+    <name>All Focus Highlighter</name>
     <version>1.0.0</version>
     <vendor url="https://github.com/dlang">Dennis Lang</vendor>
 
@@ -10,7 +10,7 @@
         <ul>
             <li>Highlights the active tool window (Project, Logcat, Build, etc.)</li>
             <li>Highlights the focused editor split when working with multiple open editors</li>
-            <li>Configurable color and border thickness via <b>Settings → Tools → Focus Highlighter</b></li>
+            <li>Configurable color and border thickness via <b>Settings → Tools → All Focus Highlighter</b></li>
         </ul>
     ]]></description>
 
@@ -23,6 +23,6 @@
                 parentId="tools"
                 instance="com.dennislang.focushighlighter.FocusHighlighterConfigurable"
                 id="com.dennislang.focus-highlighter.settings"
-                displayName="Focus Highlighter"/>
+                displayName="All Focus Highlighter"/>
     </extensions>
 </idea-plugin>
