@@ -3,10 +3,10 @@
     Bump a project's version, commit, tag, and push to trigger the CI release.
 
 .DESCRIPTION
-    Drop this script into any C#, Python, C++, or Android/Gradle repo and run it
-    from inside the repo. It locates the repo root via git and auto-detects
-    which version-bearing files are present, updating each one if found and
-    silently skipping the rest:
+    Drop this script into any C#, Python, C++, Android/Gradle, or IntelliJ
+    Platform plugin repo and run it from inside the repo. It locates the repo
+    root via git and auto-detects which version-bearing files are present,
+    updating each one if found and silently skipping the rest:
 
         VERSION                     bare  X.Y.Z
         README.md                   <!-- VERSION -->vX.Y.Z  and  <!-- DATE -->dd-MMM-yyyy
@@ -16,6 +16,7 @@
         *.cpp / *.h / ...           #define VERSION / _VERSION "vX.Y.Z"
         *.rc                        FILEVERSION/PRODUCTVERSION + strings + (C) year
         build.gradle[.kts]          versionName "X.Y.Z" + versionCode (major*10000+minor*100+patch)
+        plugin.xml                  <version>X.Y.Z</version> (IntelliJ Platform plugin descriptor)
 
     Then: git add -> commit -> annotated tag -> push branch -> push tag.
 
@@ -318,6 +319,16 @@ foreach ($f in Get-RepoFiles @('build.gradle', 'build.gradle.kts')) {
             $t = [regex]::Replace($t, '(versionCode\b\s*=?\s*)\d+', "`${1}$versionCode")
             $t
         } "$($f.Name)  (versionName=$ver versionCode=$versionCode)"
+    }
+}
+
+# ── 9. IntelliJ Platform plugin descriptor: <version>X.Y.Z</version> ─────────
+foreach ($f in Get-RepoFiles 'plugin.xml') {
+    $text = (Read-Utf8 $f.FullName).Text
+    if ($text -match '<version>[^<]*</version>') {
+        Edit-Utf8 $f.FullName {
+            param($t) [regex]::Replace($t, '<version>[^<]*</version>', "<version>$ver</version>")
+        } "$($f.Name)  (<version>$ver</version>)"
     }
 }
 

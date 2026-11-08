@@ -2,7 +2,7 @@
 // Copyright (c) 2026 LanDen Labs - Dennis Lang
 // https://landenlabs.com
 // ----------------------------------------------------------------------
-package com.dennislang.focushighlighter
+package com.landenlabs.focushighlighter
 
 import com.intellij.ui.JBColor
 import com.intellij.util.ui.JBUI

@@ -4,10 +4,10 @@
 # the CI release. Portable across macOS and Linux (uses perl + iconv, not the
 # BSD/GNU-divergent `sed -i`).
 #
-# Drop this script into any C#, Python, C++, or Android/Gradle repo and run it
-# from inside the repo. It locates the repo root via git and auto-detects
-# which version-bearing files are present, updating each if found and
-# skipping the rest:
+# Drop this script into any C#, Python, C++, Android/Gradle, or IntelliJ
+# Platform plugin repo and run it from inside the repo. It locates the repo
+# root via git and auto-detects which version-bearing files are present,
+# updating each if found and skipping the rest:
 #
 #     VERSION                     bare  X.Y.Z
 #     README.md                   <!-- VERSION -->vX.Y.Z  and  <!-- DATE -->dd-MMM-yyyy
@@ -17,6 +17,7 @@
 #     *.cpp / *.h / ...           #define VERSION / _VERSION "vX.Y.Z"
 #     *.rc                        FILEVERSION/PRODUCTVERSION + strings + (C) year
 #     build.gradle[.kts]          versionName "X.Y.Z" + versionCode (major*10000+minor*100+patch)
+#     plugin.xml                  <version>X.Y.Z</version> (IntelliJ Platform plugin descriptor)
 #
 # Then: git add -> commit -> annotated tag -> push branch -> push tag.
 # See SET-VERSION.md for the full reference.
@@ -232,6 +233,14 @@ while IFS= read -r f; do
         add_changed "$f"; echo "Updated : $f  (versionName=$VER versionCode=$VERSION_CODE)"
     fi
 done < <(find . "${PRUNE[@]}" -o -type f \( -name 'build.gradle' -o -name 'build.gradle.kts' \) -print)
+
+# ── 9. IntelliJ Platform plugin descriptor: <version>X.Y.Z</version> ─────────
+while IFS= read -r f; do
+    if grep -q '<version>' "$f"; then
+        perl -0pi -e "s|<version>[^<]*</version>|<version>$VER</version>|g" "$f"
+        add_changed "$f"; echo "Updated : $f  (<version>$VER</version>)"
+    fi
+done < <(find . "${PRUNE[@]}" -o -type f -name 'plugin.xml' -print)
 
 # ── Commit, tag, push ────────────────────────────────────────────────────────
 echo

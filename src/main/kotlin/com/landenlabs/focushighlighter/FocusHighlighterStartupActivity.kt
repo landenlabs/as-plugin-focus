@@ -2,7 +2,7 @@
 // Copyright (c) 2026 LanDen Labs - Dennis Lang
 // https://landenlabs.com
 // ----------------------------------------------------------------------
-package com.dennislang.focushighlighter
+package com.landenlabs.focushighlighter
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.Editor
@@ -34,6 +34,8 @@ class FocusHighlighterStartupActivity : ProjectActivity {
     }
 
     override suspend fun execute(project: Project) {
+        // Never let the welcome balloon stop the focus listeners from registering.
+        runCatching { WelcomeNotifier.showIfNewVersion(project) }
         registerEditorFocusListenerOnce()
         registerToolWindowListener(project)
     }

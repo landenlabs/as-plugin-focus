@@ -2,7 +2,7 @@
 // Copyright (c) 2026 LanDen Labs - Dennis Lang
 // https://landenlabs.com
 // ----------------------------------------------------------------------
-package com.dennislang.focushighlighter
+package com.landenlabs.focushighlighter
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.PersistentStateComponent
@@ -22,7 +22,9 @@ class FocusHighlighterSettings : PersistentStateComponent<FocusHighlighterSettin
         var thickness: Int = 2,
         // Skip highlighting a component smaller than this on the checked dimension(s).
         var minSize: Int = 100,
-        var ignoreDimension: IgnoreDimension = IgnoreDimension.NONE
+        var ignoreDimension: IgnoreDimension = IgnoreDimension.NONE,
+        // Plugin version the install/update welcome notification was last shown for
+        var lastNotifiedVersion: String = ""
     )
 
     enum class IgnoreDimension(val label: String) {

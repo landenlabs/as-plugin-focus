@@ -1,8 +1,8 @@
 <idea-plugin>
-    <id>com.dennislang.focus-highlighter</id>
+    <id>com.landenlabs.focus-highlighter</id>
     <name>All Focus Highlighter</name>
-    <version>1.0.0</version>
-    <vendor url="https://github.com/dlang">Dennis Lang</vendor>
+    <version>6.11.08</version>
+    <vendor url="https://landenlabs.com">LanDen Labs - Dennis Lang</vendor>
 
     <description><![CDATA[
         Makes it obvious which tool window or editor split currently has keyboard focus
@@ -10,19 +10,32 @@
         <ul>
             <li>Highlights the active tool window (Project, Logcat, Build, etc.)</li>
             <li>Highlights the focused editor split when working with multiple open editors</li>
-            <li>Configurable color and border thickness via <b>Settings → Tools → All Focus Highlighter</b></li>
+            <li>Configurable color, border thickness, and minimum highlighted size via
+                <b>Tools → Focus Highlighter Settings…</b> or <b>Settings → Tools → All Focus Highlighter</b></li>
         </ul>
+        <p>Source: <a href="https://github.com/landenlabs/as-plugin-focus">github.com/landenlabs/as-plugin-focus</a></p>
+        <p>Copyright (c) 2026 LanDen Labs - Dennis Lang</p>
     ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <postStartupActivity implementation="com.dennislang.focushighlighter.FocusHighlighterStartupActivity"/>
-        <applicationService serviceImplementation="com.dennislang.focushighlighter.FocusHighlighterSettings"/>
+        <postStartupActivity implementation="com.landenlabs.focushighlighter.FocusHighlighterStartupActivity"/>
+        <applicationService serviceImplementation="com.landenlabs.focushighlighter.FocusHighlighterSettings"/>
         <applicationConfigurable
                 parentId="tools"
-                instance="com.dennislang.focushighlighter.FocusHighlighterConfigurable"
-                id="com.dennislang.focus-highlighter.settings"
+                instance="com.landenlabs.focushighlighter.FocusHighlighterConfigurable"
+                id="com.landenlabs.focus-highlighter.settings"
                 displayName="All Focus Highlighter"/>
+        <notificationGroup id="All Focus Highlighter" displayType="BALLOON"/>
     </extensions>
+
+    <actions>
+        <action id="com.landenlabs.focushighlighter.OpenSettings"
+                class="com.landenlabs.focushighlighter.OpenFocusHighlighterSettingsAction"
+                text="Focus Highlighter Settings…"
+                description="Open Settings → Tools → All Focus Highlighter">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+    </actions>
 </idea-plugin>

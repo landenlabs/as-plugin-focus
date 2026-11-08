@@ -1,10 +1,10 @@
 <table border="0">
   <tr>
     <td>
-      <!-- VERSION -->v6.07.21<br>
-      <!-- DATE -->26-Jul-2026<br>
+      <!-- VERSION -->v6.11.08<br>
+      <!-- DATE -->08-Nov-2026<br>
       Android Studio / IntelliJ Plugin (Kotlin)<br>
-      <a href="https://github.com/dlang">Repo</a>
+      <a href="https://github.com/landenlabs/as-plugin-focus">Repo</a>
     </td>
     <td>
       <a href="https://landenlabs.com">
@@ -36,11 +36,16 @@ an editor split — so it's obvious at a glance which one is active.
 
 ## Settings
 
-Open **Settings → Tools → All Focus Highlighter** to configure:
+Open **Tools → Focus Highlighter Settings…** (or **Settings → Tools → All Focus Highlighter**,
+or type "Focus Highlighter" in Find Action ⌘⇧A / Ctrl+Shift+A) to configure:
 
 - Enable/disable toggle
 - Border color
 - Border thickness (1–6 px)
+- Minimum focus area size, and which dimension(s) it applies to — small panels and dialogs are skipped
+
+After the plugin is installed or updated, a one-time notification also offers an
+**Open Settings** link.
 
 The same panel shows the installed plugin version, a link to the repo, and a
 copyright line.
@@ -49,17 +54,20 @@ copyright line.
 
 ```
 as-plugin-focus/
-├── build.gradle.kts               # version = X.Y.Z (bumped manually to match VERSION)
-├── src/main/resources/META-INF/plugin.xml   # <version>X.Y.Z</version> (bumped manually to match VERSION)
-├── src/main/kotlin/com/dennislang/focushighlighter/
+├── build.gradle.kts               # version is read from VERSION
+├── src/main/resources/META-INF/plugin.xml   # <version>X.Y.Z</version> (updated by set-version)
+├── src/main/kotlin/com/landenlabs/focushighlighter/
 │   ├── FocusHighlighter.kt              # Core border-painting logic
 │   ├── FocusHighlighterStartupActivity.kt  # Registers the editor + tool window focus listeners
 │   ├── FocusHighlighterSettings.kt      # Persistent app-level state (saved to focus-highlighter.xml)
-│   └── FocusHighlighterConfigurable.kt  # Settings UI under Settings -> Tools -> All Focus Highlighter
+│   ├── FocusHighlighterConfigurable.kt  # Settings UI under Settings -> Tools -> All Focus Highlighter
+│   ├── OpenFocusHighlighterSettingsAction.kt  # Tools -> Focus Highlighter Settings… menu action
+│   └── WelcomeNotifier.kt               # One-time "installed/updated" balloon with Open Settings link
 ├── VERSION                         # Bare X.Y.Z, source of truth for the version above
 ├── set-version.bash                # Bump version, commit, tag, push (macOS/Linux)
 ├── set-version.ps1                 # Bump version, commit, tag, push (Windows)
 ├── README.md
+├── PRIVACY.md                      # Privacy policy (linked from the JetBrains Marketplace listing)
 ├── LICENSE
 └── .github/workflows/release.yml   # Tag-triggered build + GitHub Release
 ```
@@ -120,14 +128,31 @@ from the repo root:
 ./set-version.bash -version 1.1.0 -message "Add distinct light/dark border colors"
 ```
 
-This updates `VERSION` and the `<!-- VERSION -->v6.07.21<!-- DATE -->26-Jul-2026
-README, then commits, tags, and pushes. Because this is a plain Gradle/Kotlin
-project rather than an Android app, `build.gradle.kts`'s `version = "..."` and
-`plugin.xml`'s `<version>...</version>` aren't touched by the script (it only
-special-cases Android's `versionName`) — bump those two by hand to match `VERSION`
-before running the script.
+This updates `VERSION`, `plugin.xml`'s `<version>`, and the README's
+`<!-- VERSION -->` / `<!-- DATE -->` markers, then commits, tags, and pushes.
+`build.gradle.kts` reads its `version` from `VERSION`, so it needs no edit.
 
 Pushing the resulting `vX.Y.Z` tag triggers `.github/workflows/release.yml`, which
 runs `./gradlew buildPlugin` and publishes the resulting zip to a GitHub Release.
 Unlike an Android APK, an IntelliJ plugin zip needs no signing keystore, so no repo
 secrets are required.
+
+---
+
+### License
+
+```
+Copyright 2026 Dennis Lang (LanDen Labs)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+See [LICENSE](LICENSE) for the full license text.

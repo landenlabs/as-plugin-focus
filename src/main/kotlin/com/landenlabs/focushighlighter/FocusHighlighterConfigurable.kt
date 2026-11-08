@@ -2,7 +2,7 @@
 // Copyright (c) 2026 LanDen Labs - Dennis Lang
 // https://landenlabs.com
 // ----------------------------------------------------------------------
-package com.dennislang.focushighlighter
+package com.landenlabs.focushighlighter
 
 import com.intellij.ide.plugins.PluginManagerCore
 import com.intellij.openapi.extensions.PluginId
@@ -75,10 +75,10 @@ class FocusHighlighterConfigurable : Configurable {
         row(3, JBLabel("Minimum focus area size (px):"), minSizeSpinner)
         row(4, JBLabel("Size check:"), ignoreDimensionCombo)
 
-        val version = PluginManagerCore.getPlugin(PluginId.getId("com.dennislang.focus-highlighter"))?.version
+        val version = PluginManagerCore.getPlugin(PluginId.getId(WelcomeNotifier.PLUGIN_ID))?.version
         row(5, JBLabel("Version ${version ?: "unknown"}"))
-        val repoLink = HyperlinkLabel("Repo: github.com/dlang").apply {
-            setHyperlinkTarget("https://github.com/dlang")
+        val repoLink = HyperlinkLabel("Repo: github.com/landenlabs/as-plugin-focus").apply {
+            setHyperlinkTarget("https://github.com/landenlabs/as-plugin-focus")
         }
         row(6, repoLink)
         row(7, JBLabel("© 2026 LanDen Labs - Dennis Lang"))

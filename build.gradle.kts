@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.intellij") version "1.17.4"
 }
 
-group   = "com.dennislang"
+group   = "com.landenlabs"
 version = file("VERSION").readText().trim()
 
 repositories {
